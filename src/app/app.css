@@ -1,0 +1,41 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #1b3a5c;
+  color: #fff;
+}
+
+.shell-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.shell-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.shell-nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.shell-nav a.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.shell-content {
+  flex: 1;
+  padding: 1.5rem;
+}

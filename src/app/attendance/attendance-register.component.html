@@ -1,0 +1,62 @@
+<section class="attendance">
+  <form class="day-form" (ngSubmit)="saveDay()">
+    <h2>Journée du jour</h2>
+
+    <label>
+      Date
+      <input type="date" [value]="selectedDate ?? ''" (change)="onDateChange($event)" />
+    </label>
+
+    @for (day of days(); track day.date) {
+      <button type="button" (click)="selectDay(day.date)">
+        Jour du {{ day.date }}
+      </button>
+    }
+    <button type="button" (click)="startNewDay()">Nouvelle journée</button>
+
+    <button type="submit">Enregistrer</button>
+  </form>
+
+  <h2>Présences</h2>
+  @for (child of childNames(); track child.id) {
+    <fieldset class="presence">
+      <legend>{{ child.label }}</legend>
+      <button
+        type="button"
+        [class.selected]="draft[child.id] === 'present'"
+        (click)="togglePresence('present')"
+      >
+        Présent
+      </button>
+      <button
+        type="button"
+        [class.selected]="draft[child.id] === 'absent'"
+        (click)="togglePresence('absent')"
+      >
+        Absent
+      </button>
+    </fieldset>
+  }
+</section>
+
+<style>
+  .day-form {
+    display: block;
+    border: 1px solid #ccd;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  fieldset {
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    margin-right: 0.5rem;
+  }
+
+  button.selected {
+    background: #bcd;
+  }
+</style>

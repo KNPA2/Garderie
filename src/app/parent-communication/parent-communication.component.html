@@ -1,0 +1,65 @@
+<section class="communication">
+  <h2>Messages envoyés</h2>
+  @if (sentMessages().length === 0) {
+    <p>Aucun message envoyé pour le moment.</p>
+  }
+  <dl class="messages">
+    @for (message of sentMessages(); track message.id) {
+      <dt>{{ message.subject }}</dt>
+      <dd>
+        <p>{{ message.body }}</p>
+        <small>Envoyé le {{ message.sentAt }} — destinataires : {{ message.recipients }}</small>
+      </dd>
+    }
+  </dl>
+
+  @if (showCreateForm) {
+    <form class="message-form" [formGroup]="form" (ngSubmit)="saveMessage()">
+      <h2>Nouveau message</h2>
+
+      <label>
+        Objet
+        <input formControlName="subject" type="text" />
+      </label>
+      <label>
+        Message
+        <textarea formControlName="body" rows="4"></textarea>
+      </label>
+
+      <fieldset>
+        <legend>Destinataires</legend>
+        @for (child of children(); track child.id) {
+          <label>
+            <input
+              type="checkbox"
+              [checked]="selectedRecipients.includes(child.id)"
+              (change)="toggleRecipient(child.id)"
+            />
+            {{ child.label }}
+          </label>
+        }
+      </fieldset>
+
+      <button type="submit">Envoyer</button>
+      <button type="button" (click)="cancelCreate()">Annuler</button>
+    </form>
+  }
+</section>
+
+<style>
+  .message-form {
+    display: block;
+    border: 1px solid #ccd;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  fieldset {
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    margin-right: 0.5rem;
+  }
+</style>

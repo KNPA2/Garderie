@@ -1,0 +1,35 @@
+<table class="table">
+  <thead>
+    <tr>
+      @for (column of columns; track column.header) {
+        <th>{{ column.header }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of rows; track row.id) {
+      <tr>
+        @for (column of columns; track column.header) {
+          <td>{{ value(row, column.field) }}</td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>
+<style>
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table th,
+  .table td {
+    border: 1px solid #ccd;
+    padding: 0.5rem;
+    text-align: start;
+  }
+
+  .table th {
+    background: #eef;
+  }
+</style>

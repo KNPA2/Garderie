@@ -1,0 +1,98 @@
+<section class="children">
+  <shared-list
+    heading="Enfants inscrits"
+    [items]="childItems()"
+  ></shared-list>
+
+  @if (showCreateChild || editingChildId !== null) {
+    <form
+      class="children-form"
+      [formGroup]="childForm"
+      (ngSubmit)="saveChild()"
+    >
+      <h2>{{ editingChildId === null ? 'Ajouter un enfant' : 'Modifier l\u2019enfant' }}</h2>
+
+      <label>
+        Nom
+        <input formControlName="firstName" type="text" />
+      </label>
+      <label>
+        Nom de famille
+        <input formControlName="lastName" type="text" />
+      </label>
+
+      <fieldset>
+        <legend>Parents liés</legend>
+        @for (parent of parentDirectory(); track parent.id) {
+          <label>
+            <input
+              type="checkbox"
+              [checked]="selectedParentIds.includes(parent.id)"
+              (change)="toggleParent(parent.id)"
+            />
+            {{ parent.firstName }} {{ parent.lastName }}
+          </label>
+        }
+      </fieldset>
+
+      <button type="submit">Enregistrer</button>
+      <button type="button" (click)="stopEditing()">Annuler</button>
+    </form>
+  }
+
+  <section class="parents">
+    <shared-list
+      heading="Parents"
+      [items]="parentItems()"
+    ></shared-list>
+
+    @if (showCreateParent || editingParentId !== null) {
+      <form
+        class="parents-form"
+        [formGroup]="parentForm"
+        (ngSubmit)="saveParent()"
+      >
+        <h2>{{ editingParentId === null ? 'Ajouter un parent' : 'Modifier le parent' }}</h2>
+
+        <label>
+          Prénom
+          <input formControlName="firstName" type="text" />
+        </label>
+        <label>
+          Nom de famille
+          <input formControlName="lastName" type="text" />
+        </label>
+        <label>
+          Courriel
+          <input formControlName="email" type="email" />
+        </label>
+        <label>
+          Téléphone
+          <input formControlName="phone" type="tel" />
+        </label>
+
+        <button type="submit">Enregistrer</button>
+        <button type="button" (click)="stopEditing()">Annuler</button>
+      </form>
+    }
+  </section>
+</section>
+
+<style>
+  form {
+    display: block;
+    max-width: 40rem;
+    border: 1px solid #ccd;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  fieldset {
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    margin-right: 0.5rem;
+  }
+</style>

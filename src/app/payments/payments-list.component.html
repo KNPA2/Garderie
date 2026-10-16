@@ -1,0 +1,61 @@
+<section class="payments">
+  <h2>Paiements effectués</h2>
+  @if (paidRows().length === 0) {
+    <p>Aucun paiement effectué pour le moment.</p>
+  }
+  <table class="payments-table">
+    <thead>
+      <tr>
+        <th>Montant</th>
+        <th>Enfant</th>
+        <th>Effectué le</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of paidRows(); track row.id) {
+        <tr>
+          <td>{{ row.amount }} €</td>
+          <td>{{ row.childLabel }}</td>
+          <td>{{ row.paidOn }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <h2>À effectuer</h2>
+  @if (outstandingRows().length === 0) {
+    <p>Tout est réglé.</p>
+  }
+  <table class="payments-table">
+    <thead>
+      <tr>
+        <th>Montant</th>
+        <th>Enfant</th>
+        <th>À payer le</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of outstandingRows(); track row.id) {
+        <tr>
+          <td>{{ row.amount }} €</td>
+          <td>{{ row.childLabel }}</td>
+          <td>{{ row.dueDate }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccd;
+    padding: 0.5rem;
+    text-align: start;
+  }
+</style>
